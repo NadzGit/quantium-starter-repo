@@ -6,21 +6,17 @@ import plotly.express as px
 import pandas as pd
 import os
 
-# ── Data ────────────────────────────────────────────────────────────────
 data_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'formatted_data.csv')
 df = pd.read_csv(data_path)
 df['Date'] = pd.to_datetime(df['Date'])
 df['Region'] = df['Region'].str.strip().str.lower()
 
-# ── App ─────────────────────────────────────────────────────────────────
 app = Dash(__name__)
 app.title = "Pink Morsel Sales · Soul Foods"
 
-# ── Layout ──────────────────────────────────────────────────────────────
 app.layout = html.Div(
     id="app-container",
     children=[
-        # ── Header ──────────────────────────────────────────────────────
         html.Div(
             id="header",
             children=[
@@ -31,7 +27,6 @@ app.layout = html.Div(
                 ),
             ],
         ),
-        # ── Controls ────────────────────────────────────────────────────
         html.Div(
             id="controls",
             children=[
@@ -50,14 +45,12 @@ app.layout = html.Div(
                 ),
             ],
         ),
-        # ── Chart ───────────────────────────────────────────────────────
         html.Div(
             id="chart-container",
             children=[
                 dcc.Graph(id="sales-graph"),
             ],
         ),
-        # ── Footer ──────────────────────────────────────────────────────
         html.Div(
             id="footer",
             children=[
@@ -68,7 +61,6 @@ app.layout = html.Div(
 )
 
 
-# ── Callback ────────────────────────────────────────────────────────────
 @app.callback(
     Output("sales-graph", "figure"),
     Input("region-filter", "value"),
@@ -117,7 +109,6 @@ def update_graph(selected_region):
     return fig
 
 
-# ── CSS injected directly (no external file needed) ────────────────────
 app.index_string = """<!DOCTYPE html>
 <html>
 <head>
@@ -128,7 +119,6 @@ app.index_string = """<!DOCTYPE html>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* ── Reset & Base ─────────────────────────────────── */
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: 'Inter', sans-serif;
@@ -137,14 +127,12 @@ app.index_string = """<!DOCTYPE html>
             min-height: 100vh;
         }
 
-        /* ── App Container ────────────────────────────────── */
         #app-container {
             max-width: 960px;
             margin: 0 auto;
             padding: 40px 24px 20px;
         }
 
-        /* ── Header ───────────────────────────────────────── */
         #header {
             text-align: center;
             margin-bottom: 32px;
@@ -163,7 +151,6 @@ app.index_string = """<!DOCTYPE html>
             letter-spacing: 0.02em;
         }
 
-        /* ── Controls ─────────────────────────────────────── */
         #controls {
             background: rgba(30, 27, 75, 0.55);
             backdrop-filter: blur(12px);
